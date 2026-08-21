@@ -1,355 +1,123 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
-export default function Home() {
-  const examDate = new Date("2026-09-30T08:00:00").getTime();
-  const [time, setTime] = useState({
-    d: 0,
-    h: 0,
-    m: 0,
-    s: 0,
-  });
-
-  useEffect(() => {
-    const i = setInterval(() => {
-      const diff = examDate - Date.now();
-
-      setTime({
-        d: Math.max(0, Math.floor(diff / 86400000)),
-        h: Math.max(0, Math.floor((diff % 86400000) / 3600000)),
-        m: Math.max(0, Math.floor((diff % 3600000) / 60000)),
-        s: Math.max(0, Math.floor((diff % 60000) / 1000)),
-      });
-    }, 1000);
-
-    return () => clearInterval(i);
-  }, []);
-
-  const card = {
-    background: "rgba(13,19,13,.92)",
-    border: "1px solid rgba(212,175,55,.18)",
-    borderRadius: 24,
-    padding: 28,
-    transition: ".25s",
-    boxShadow: "0 0 30px rgba(212,175,55,.04)",
-  };
-
+export default function EgzaminStart() {
   return (
     <main
       style={{
         minHeight: "100vh",
-        background:
-          "radial-gradient(circle at top,#0d150d 0%,#040704 70%)",
-        color: "white",
+        background: "#060906",
+        color: "#eef2e8",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 30,
         fontFamily: "Arial",
       }}
     >
       <div
         style={{
-          maxWidth: 1300,
-          margin: "0 auto",
+          width: "100%",
+          maxWidth: 900,
+          border: "1px solid #243224",
+          borderRadius: 24,
+          background: "rgba(10,14,10,.9)",
           padding: 40,
         }}
       >
         <div
           style={{
-            border: "1px solid rgba(212,175,55,.18)",
-            borderRadius: 32,
-            padding: 40,
-            background: "rgba(6,10,6,.92)",
-            backdropFilter: "blur(8px)",
-            boxShadow: "0 0 50px rgba(212,175,55,.05)",
+            display: "inline-block",
+            border: "1px solid #4d6a45",
+            borderRadius: 999,
+            padding: "8px 18px",
+            color: "#b6c7a8",
+            fontSize: 13,
+            marginBottom: 20,
           }}
         >
-          <div
-            style={{
-              display: "inline-block",
-              padding: "10px 18px",
-              borderRadius: 999,
-              border: "1px solid rgba(212,175,55,.25)",
-              color: "#d4af37",
-              marginBottom: 20,
-            }}
-          >
-            ● SYSTEM PRZYGOTOWANIA
-          </div>
-
-          <h1
-            style={{
-              fontSize: 70,
-              margin: "0 0 12px",
-            }}
-          >
-            Egzamin Oficerski
-          </h1>
-
-          <p style={{ color: "#8f9a82" }}>
-            PLAN 2026 • TRYB SZKOLENIOWY • 4 MODUŁY
-          </p>
-
-          <div
-            style={{
-              marginTop: 35,
-              display: "grid",
-              gridTemplateColumns: "2fr 1fr",
-              gap: 30,
-            }}
-          >
-            <div
-              style={{
-                border: "1px solid rgba(212,175,55,.18)",
-                borderRadius: 24,
-                padding: 25,
-              }}
-            >
-              <div style={{ color: "#8f9a82" }}>Termin egzaminu</div>
-
-              <h2 style={{ marginTop: 8 }}>30 września 2026</h2>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4,1fr)",
-                  gap: 12,
-                  marginTop: 25,
-                }}
-              >
-                {[
-                  ["DNI", time.d],
-                  ["GODZ", time.h],
-                  ["MIN", time.m],
-                  ["SEK", time.s],
-                ].map(([l, v]) => (
-                  <div
-                    key={String(l)}
-                    style={{
-                      background: "#111611",
-                      borderRadius: 18,
-                      padding: 18,
-                      textAlign: "center",
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: 34,
-                        fontWeight: "bold",
-                        color: "#d4af37",
-                      }}
-                    >
-                      {String(v).padStart(2, "0")}
-                    </div>
-                    <div style={{ color: "#7f8a74" }}>{l}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div
-              style={{
-                border: "1px solid rgba(212,175,55,.18)",
-                borderRadius: 24,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background:
-                  "radial-gradient(circle,#1d1b08 0%,#090d09 70%)",
-              }}
-            >
-              <div
-                style={{
-                  width: 180,
-                  height: 180,
-                  borderRadius: "50%",
-                  border: "2px solid rgba(212,175,55,.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 80,
-                  color: "#d4af37",
-                }}
-              >
-                <svg width="120" height="120" viewBox="0 0 120 120">
-  <circle cx="60" cy="60" r="55" fill="none" stroke="#d4af37" strokeWidth="2"/>
-  <path d="M60 20 L70 40 L60 95 L50 40 Z" fill="#d4af37"/>
-  <path d="M38 58 Q60 42 82 58" fill="none" stroke="#d4af37" strokeWidth="3"/>
-  <path d="M35 75 Q60 90 85 75" fill="none" stroke="#7b6520" strokeWidth="2"/>
-</svg>
-              </div>
-            </div>
-          </div>
+          ● TRYB EGZAMINACYJNY
         </div>
 
-        <div style={{ marginTop: 60 }}>
-          <div
-            style={{
-              color: "#8f9a82",
-              letterSpacing: 3,
-            }}
-          >
-            ŚCIEŻKA EGZAMINU
-          </div>
+        <h1 style={{ fontSize: 54, margin: "0 0 15px" }}>
+          Egzamin Oficerski
+        </h1>
 
-          <h2
-            style={{
-              fontSize: 46,
-              marginBottom: 35,
-            }}
-          >
-            Wybierz etap
-          </h2>
+        <p style={{ color: "#9fa89a", lineHeight: 1.7 }}>
+          Oficjalna symulacja egzaminu.
+          <br />
+          Masz dokładnie 50 pytań oraz 90 minut.
+        </p>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2,1fr)",
-              gap: 24,
-            }}
-          >
-            <div style={card}>
-              <div
-                style={{
-                  fontSize: 46,
-                  color: "#d4af37",
-                }}
-              >
-                🧠
-              </div>
-              <h3>Test wiedzy</h3>
-              <p style={{ color: "#8f9a82" }}>
-                615 pytań • losowanie 50 • egzamin 90 minut
-              </p>
-
-              <Link href="/egzamin">
-                <button
-                  style={{
-                    marginTop: 18,
-                    width: "100%",
-                    padding: 16,
-                    borderRadius: 14,
-                    border: "none",
-                    background: "#d4af37",
-                    color: "#111",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                >
-                  Rozpocznij →
-                </button>
-              </Link>
-            </div>
-
-            <div style={card}>
-              <div
-                style={{
-                  fontSize: 46,
-                  color: "#d4af37",
-                }}
-              >
-                📘
-              </div>
-              <h3>Teoria i praktyka</h3>
-              <p style={{ color: "#8f9a82" }}>
-                odpowiedzi ustne, checklisty i powtórki
-              </p>
-            </div>
-
-            <div style={card}>
-              <div
-                style={{
-                  fontSize: 46,
-                  color: "#d4af37",
-                }}
-              >
-                🎯
-              </div>
-              <h3>Musztra</h3>
-              <p style={{ color: "#8f9a82" }}>
-                22 zagadnienia krok po kroku
-              </p>
-            </div>
-
-            <div style={card}>
-              <div
-                style={{
-                  fontSize: 46,
-                  color: "#d4af37",
-                }}
-              >
-                ⭐
-              </div>
-              <h3>Pętla taktyczna</h3>
-              <p style={{ color: "#8f9a82" }}>
-                trening bez podpowiedzi i analiza błędów
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <footer
+        <div
           style={{
-            marginTop: 60,
-            borderTop: "1px solid rgba(212,175,55,.15)",
-            padding: "30px 0",
             display: "grid",
-            gridTemplateColumns: "repeat(4,1fr)",
-            textAlign: "center",
-            color: "#8f9a82",
+            gridTemplateColumns: "repeat(3,1fr)",
+            gap: 16,
+            marginTop: 35,
           }}
         >
-          <div>
+          {[
+            ["50", "PYTAŃ"],
+            ["90", "MINUT"],
+            ["70%", "PRÓG"],
+          ].map(([v, l]) => (
             <div
+              key={l}
               style={{
-                color: "#d4af37",
-                fontSize: 28,
-                fontWeight: "bold",
+                border: "1px solid #223222",
+                borderRadius: 18,
+                padding: 24,
+                textAlign: "center",
+                background: "#0a100a",
               }}
             >
-              615+
+              <div style={{ fontSize: 36, fontWeight: 700 }}>{v}</div>
+              <div style={{ color: "#7f8d7f", marginTop: 6 }}>{l}</div>
             </div>
-            Pytań
+          ))}
+        </div>
+
+        <div
+          style={{
+            marginTop: 35,
+            border: "1px solid #2b3b2b",
+            borderRadius: 18,
+            padding: 22,
+            background: "#081008",
+          }}
+        >
+          <div style={{ color: "#b8c7b1", marginBottom: 10 }}>
+            Zasady egzaminu
           </div>
 
-          <div>
-            <div
-              style={{
-                color: "#d4af37",
-                fontSize: 28,
-                fontWeight: "bold",
-              }}
-            >
-              4
-            </div>
-            Moduły
-          </div>
+          <ul style={{ lineHeight: 1.8, color: "#93a08f" }}>
+            <li>50 losowych pytań.</li>
+            <li>Jedna odpowiedź.</li>
+            <li>90 minut.</li>
+            <li>Po zakończeniu otrzymasz raport.</li>
+          </ul>
+        </div>
 
-          <div>
-            <div
-              style={{
-                color: "#d4af37",
-                fontSize: 28,
-                fontWeight: "bold",
-              }}
-            >
-              50
-            </div>
-            Pytań na egzaminie
-          </div>
-
-          <div>
-            <div
-              style={{
-                color: "#d4af37",
-                fontSize: 28,
-                fontWeight: "bold",
-              }}
-            >
-              90
-            </div>
-            Minut
-          </div>
-        </footer>
+        <Link href="/egzamin/sesja">
+          <button
+            style={{
+              width: "100%",
+              marginTop: 35,
+              padding: 20,
+              borderRadius: 18,
+              border: "none",
+              background: "#d8e0c8",
+              color: "#111",
+              fontSize: 18,
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            Rozpocznij egzamin →
+          </button>
+        </Link>
       </div>
     </main>
   );
