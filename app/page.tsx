@@ -2,10 +2,21 @@
 
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import Image from "next/image";
 import pytania from "../data/questions.json";
 
-export default function NaukaPage() {
+import { Suspense } from "react";
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Ładowanie...</div>}>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
   const search = useSearchParams();
   const imageMode = search.get("mode") === "image";
 
