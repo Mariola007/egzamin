@@ -36,7 +36,7 @@ export default function Nauka() {
         <h2>{pyt.question}</h2>
 
         <div style={{ display: "grid", gap: 12, marginTop: 20 }}>
-          {pyt.answers.map((odp, i) => (
+          {pyt.choices.map((odp: any, i: number) => (
             <button
               key={i}
               onClick={() => setWybrana(i)}
