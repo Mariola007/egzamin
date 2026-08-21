@@ -1,8 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import pytania from "../data/questions.json";
 
