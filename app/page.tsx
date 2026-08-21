@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import pytania from "../../data/questions.json";
+import pytania from "../data/questions.json";
 
 export default function NaukaPage() {
   const search = useSearchParams();
