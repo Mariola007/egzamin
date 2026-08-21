@@ -1,49 +1,75 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+import pytania from "../../data/questions.json";
 
 export default function Egzamin() {
-  const [czas, setCzas] = useState(90 * 60);
+  const lista = useMemo(() => [...(pytania as any[])].slice(0, 615), []);
+  const [nr, setNr] = useState(0);
+  const [odp, setOdp] = useState<{ [k: number]: string }>({});
+  const [koniec, setKoniec] = useState(false);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCzas((c) => (c > 0 ? c - 1 : 0));
-    }, 1000);
+  const pyt = lista[nr];
 
-    return () => clearInterval(timer);
-  }, []);
+  const wynik = lista.reduce(
+    (s, p, i) => s + (odp[i] === p.correctKey ? 1 : 0),
+    0
+  );
 
-  const min = Math.floor(czas / 60);
-  const sek = czas % 60;
+  if (koniec) {
+    return (
+      <main style={{ padding: 20, fontFamily: "Arial" }}>
+        <h1>Wynik egzaminu</h1>
+        <h2>{wynik} / {lista.length}</h2>
+        <p>{wynik >= 430 ? "✅ ZALICZONE" : "❌ NIEZALICZONE"}</p>
+      </main>
+    );
+  }
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#111827",
-        color: "white",
-        padding: 30,
-        fontFamily: "Arial"
-      }}
-    >
-      <h1>Egzamin próbny</h1>
+    <main style={{ padding: 20, fontFamily: "Arial", maxWidth: 900 }}>
+      <h1>Egzamin Oficerski</h1>
 
-      <div
-        style={{
-          fontSize: 56,
-          fontWeight: "bold",
-          color: czas < 300 ? "#ef4444" : "white",
-          margin: "30px 0"
-        }}
-      >
-        {String(min).padStart(2, "0")}:{String(sek).padStart(2, "0")}
+      <p>Pytanie {nr + 1} z {lista.length}</p>
+
+      <div style={{ background: "#f4f4f4", padding: 20, borderRadius: 12 }}>
+        <h2>{pyt.question}</h2>
+
+        <div style={{ display: "grid", gap: 12 }}>
+          {pyt.choices.map((o: any) => (
+            <button
+              key={o.key}
+              onClick={() =>
+                setOdp({ ...odp, [nr]: o.key })
+              }
+              style={{
+                padding: 14,
+                textAlign: "left",
+                borderRadius: 8,
+                border: "1px solid #ccc",
+                background:
+                  odp[nr] === o.key ? "#2563eb" : "white",
+                color: odp[nr] === o.key ? "white" : "black",
+                cursor: "pointer",
+              }}
+            >
+              {o.key}. {o.text}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <p>Czas egzaminu: 90 minut.</p>
+      <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+        <button disabled={nr === 0} onClick={() => setNr(nr - 1)}>
+          Poprzednie
+        </button>
 
-      <a href="/" style={{ color: "#60a5fa" }}>
-        ← Powrót
-      </a>
+        {nr < lista.length - 1 ? (
+          <button onClick={() => setNr(nr + 1)}>Następne</button>
+        ) : (
+          <button onClick={() => setKoniec(true)}>Zakończ egzamin</button>
+        )}
+      </div>
     </main>
   );
 }
