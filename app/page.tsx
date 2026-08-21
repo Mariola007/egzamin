@@ -170,7 +170,12 @@ export default function Home() {
                   color: "#d4af37",
                 }}
               >
-                ⚔
+                <svg width="120" height="120" viewBox="0 0 120 120">
+  <circle cx="60" cy="60" r="55" fill="none" stroke="#d4af37" strokeWidth="2"/>
+  <path d="M60 20 L70 40 L60 95 L50 40 Z" fill="#d4af37"/>
+  <path d="M38 58 Q60 42 82 58" fill="none" stroke="#d4af37" strokeWidth="3"/>
+  <path d="M35 75 Q60 90 85 75" fill="none" stroke="#7b6520" strokeWidth="2"/>
+</svg>
               </div>
             </div>
           </div>
