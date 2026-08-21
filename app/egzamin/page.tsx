@@ -15,6 +15,7 @@ export default function EgzaminPage() {
 
   const [current, setCurrent] = useState(0);
   const [answers, setAnswers] = useState<(string | null)[]>(
+    const [started, setStarted] = useState(false);
     Array(EXAM_SIZE).fill(null)
   );
   const [marked, setMarked] = useState<number[]>([]);
@@ -57,7 +58,63 @@ export default function EgzaminPage() {
   const score = answers.reduce((sum, ans, i) => {
     return sum + (ans === examQuestions[i].correctKey ? 1 : 0);
   }, 0);
+if (!started) {
+  return (
+    <main style={{
+      background:"#050805",
+      color:"white",
+      minHeight:"100vh",
+      display:"flex",
+      justifyContent:"center",
+      alignItems:"center",
+      padding:20
+    }}>
+      <div style={{
+        width:"100%",
+        maxWidth:900,
+        border:"1px solid #2a3324",
+        borderRadius:24,
+        padding:30
+      }}>
+        <div style={{
+          display:"inline-block",
+          border:"1px solid #3b4a34",
+          borderRadius:999,
+          padding:"8px 16px",
+          marginBottom:20
+        }}>
+          ● TRYB EGZAMINACYJNY
+        </div>
 
+        <h1 style={{fontSize:56}}>Egzamin Oficerski</h1>
+
+        <p style={{color:"#9ca38f"}}>
+          Oficjalna symulacja egzaminu.
+          <br/>
+          50 pytań • 90 minut.
+        </p>
+
+        <button
+          onClick={() => setStarted(true)}
+          style={{
+            width:"100%",
+            padding:22,
+            borderRadius:18,
+            border:"none",
+            background:"#d6dbc2",
+            color:"#111",
+            fontSize:24,
+            fontWeight:700,
+            cursor:"pointer",
+            marginTop:30
+          }}
+        >
+          Rozpocznij egzamin →
+        </button>
+      </div>
+    </main>
+  );
+}
   if (finished) {
     return (
       <main style={{ padding: 30, color: "white", background: "#050805", minHeight: "100vh" }}>
