@@ -48,7 +48,7 @@ export default function Nauka() {
                 background:
                   wybrana === null
                     ? "#334155"
-                   : odp.key === pyt.answer
+                  : odp.correct
                     ? "#16a34a"
                     : i === wybrana
                     ? "#dc2626"
