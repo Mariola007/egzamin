@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import pytania from "../../../data/questions.json";
+import pytania from "../../data/questions.json";
 
 const EXAM_TIME = 90 * 60;
 const EXAM_SIZE = 50;
