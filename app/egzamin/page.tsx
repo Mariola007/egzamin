@@ -19,6 +19,7 @@ export default function EgzaminPage() {
   const [marked, setMarked] = useState<number[]>([]);
   const [time, setTime] = useState(EXAM_TIME);
   const [finished, setFinished] = useState(false);
+  const pyt = examQuestions[current];
 
   useEffect(() => {
     if (finished) return;
