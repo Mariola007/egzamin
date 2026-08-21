@@ -9,7 +9,7 @@ const EXAM_SIZE = 50;
 
 export default function EgzaminPage() {
   const examQuestions = useMemo(() => {
-    return [...questions].sort(() => Math.random() - 0.5).slice(0, EXAM_SIZE);
+   return [...(pytania as any[])].sort(() => Math.random() - 0.5).slice(0, EXAM_SIZE);
   }, []);
 
   const [current, setCurrent] = useState(0);
