@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import questions from "../../data/questions.json";
+import Image from "next/image";
+import pytania from "../../../data/questions.json";
 
 const EXAM_TIME = 90 * 60;
 const EXAM_SIZE = 50;
@@ -145,8 +146,23 @@ export default function EgzaminPage() {
         />
       </div>
 
-      <h2>{q.question}</h2>
-
+<h2>{pyt.question}</h2>
+      {pyt.image && (
+  <div style={{ margin: "20px 0" }}>
+    <Image
+      src={pyt.image}
+      alt="Pytanie"
+      width={700}
+      height={400}
+      style={{
+        width: "100%",
+        height: "auto",
+        borderRadius: 14,
+        border: "1px solid #334155"
+      }}
+    />
+  </div>
+)}
       {q.image && (
         <img
           src={q.image}
