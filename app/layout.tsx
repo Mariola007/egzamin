@@ -1,4 +1,1 @@
-
-export const metadata={title:'Egzamin Oficerski'};
-export default function RootLayout({children}:{children:React.ReactNode}){
-return <html lang="pl"><body style={{margin:0,fontFamily:'Arial',background:'#050805',color:'#fff'}}>{children}</body></html>}
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang='pl'><body style={{fontFamily:'Arial',background:'#0b0f0b',color:'white',padding:24}}>{children}</body></html>}
