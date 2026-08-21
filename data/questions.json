@@ -1,0 +1,24 @@
+[
+  {
+    "id": 378,
+    "question": "Zarządzenie przygotowawcze?",
+    "answers": [
+      "jest dokumentem sprawozdawczym",
+      "nie występuje taki dokument",
+      "jest dokumentem bojowym",
+      "jest dokumentem rozpoznawczym"
+    ],
+    "correct": 2
+  },
+  {
+    "id": 335,
+    "question": "Jaki element należy do pasywnej powszechnej obrony przeciwlotniczej?",
+    "answers": [
+      "maskowanie",
+      "aktywna walka",
+      "rozpoznanie",
+      "ostrzeganie"
+    ],
+    "correct": 0
+  }
+]

@@ -1,0 +1,1 @@
+# Egzamin Oficerski\n\n`npm install && npm run dev`\n
