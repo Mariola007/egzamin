@@ -13,15 +13,18 @@ export default function EgzaminPage() {
    return [...(pytania as any[])].sort(() => Math.random() - 0.5).slice(0, EXAM_SIZE);
   }, []);
 
-  const [current, setCurrent] = useState(0);
-  const [answers, setAnswers] = useState<(string | null)[]>(
-    const [started, setStarted] = useState(false);
-    Array(EXAM_SIZE).fill(null)
-  );
-  const [marked, setMarked] = useState<number[]>([]);
-  const [time, setTime] = useState(EXAM_TIME);
-  const [finished, setFinished] = useState(false);
-  const pyt = examQuestions[current];
+const [current, setCurrent] = useState(0);
+
+const [answers, setAnswers] = useState<(string | null)[]>(
+  Array(EXAM_SIZE).fill(null)
+);
+
+const [started, setStarted] = useState(false);
+
+const [marked, setMarked] = useState<number[]>([]);
+const [time, setTime] = useState(EXAM_TIME);
+const [finished, setFinished] = useState(false);
+const pyt = examQuestions[current];
 
   useEffect(() => {
     if (finished) return;
