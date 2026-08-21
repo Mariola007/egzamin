@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function Home() {
   const [czas, setCzas] = useState("");
@@ -16,9 +16,9 @@ export default function Home() {
         return;
       }
 
-      const dni = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const godz = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const min = Math.floor((diff / (1000 * 60)) % 60);
+      const dni = Math.floor(diff / 86400000);
+      const godz = Math.floor((diff / 3600000) % 24);
+      const min = Math.floor((diff / 60000) % 60);
       const sek = Math.floor((diff / 1000) % 60);
 
       setCzas(`${dni} dni ${godz} h ${min} min ${sek} s`);
@@ -27,75 +27,159 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  const stats = useMemo(() => {
+    if (typeof window === "undefined")
+      return { mastered: 0, wrong: 0 };
+
+    const s = JSON.parse(localStorage.getItem("stats") || "{}");
+    return {
+      mastered: s.mastered || 0,
+      wrong: s.wrong || 0,
+    };
+  }, []);
+
   return (
     <main
       style={{
-        minHeight: "100vh",
         background: "#f5f5f5",
-        padding: 20,
+        minHeight: "100vh",
+        padding: 18,
         fontFamily: "Arial",
       }}
     >
       <div
         style={{
-          maxWidth: 500,
+          maxWidth: 520,
           margin: "0 auto",
-          background: "white",
-          borderRadius: 20,
-          padding: 24,
-          boxShadow: "0 8px 24px rgba(0,0,0,.08)",
+          display: "grid",
+          gap: 18,
         }}
       >
-        <h1>Egzamin Oficerski</h1>
+        <div
+          style={{
+            background: "white",
+            borderRadius: 22,
+            padding: 24,
+          }}
+        >
+          <h1 style={{ marginTop: 0 }}>Egzamin Oficerski</h1>
 
-        <p>Odliczanie do 8 września</p>
+          <p style={{ color: "#666" }}>
+            Odliczanie do 8 września
+          </p>
 
-        <h2>{czas}</h2>
+          <h2>{czas}</h2>
 
-        <div style={{ display: "grid", gap: 12, marginTop: 30 }}>
-          <a href="/nauka">
-            <button
-              style={{
-                width: "100%",
-                padding: 16,
-                borderRadius: 14,
-                border: 0,
-                background: "black",
-                color: "white",
-                fontSize: 18,
-              }}
-            >
-              Rozpocznij naukę
-            </button>
-          </a>
+          <div style={{ display: "grid", gap: 12, marginTop: 24 }}>
+            <a href="/nauka">
+              <button
+                style={btnPrimary}
+              >
+                Rozpocznij naukę
+              </button>
+            </a>
 
-          <button
-            style={{
-              width: "100%",
-              padding: 16,
-              borderRadius: 14,
-              background: "white",
-              border: "2px solid #ddd",
-              fontSize: 18,
-            }}
-          >
-            Symulacja egzaminu
-          </button>
+            <a href="/egzamin">
+              <button style={btnSecondary}>
+                Symulacja egzaminu
+              </button>
+            </a>
+          </div>
         </div>
 
         <div
           style={{
-            marginTop: 30,
-            background: "#fafafa",
-            padding: 16,
-            borderRadius: 16,
+            background: "white",
+            borderRadius: 22,
+            padding: 22,
           }}
         >
           <h3>Statystyki</h3>
-          <p>Opanowane: 0</p>
-          <p>Do poprawy: 0</p>
+
+          <div
+            style={{
+              display: "flex",
+              gap: 10,
+              marginTop: 12,
+            }}
+          >
+            <Stat label="Opanowane" value={stats.mastered} />
+            <Stat label="Do poprawy" value={stats.wrong} />
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: "white",
+            borderRadius: 22,
+            padding: 22,
+          }}
+        >
+          <row justify=between align=center>
+            <h3 style={{ margin: 0 }}>
+              Top 20 do poprawy
+            </h3>
+            <badge label="0" />
+          </row>
+
+          <p style={{ color: "#777" }}>
+            Tu pojawią się najczęściej
+            błędnie zaznaczane pytania.
+          </p>
         </div>
       </div>
     </main>
   );
 }
+
+function Stat({
+  label,
+  value,
+}: {
+  label: string;
+  value: number;
+}) {
+  return (
+    <div
+      style={{
+        flex: 1,
+        border: "1px solid #eee",
+        borderRadius: 18,
+        padding: 16,
+        textAlign: "center",
+      }}
+    >
+      <div
+        style={{
+          fontSize: 28,
+          fontWeight: 700,
+        }}
+      >
+        {value}
+      </div>
+
+      <div style={{ color: "#666" }}>
+        {label}
+      </div>
+    </div>
+  );
+}
+
+const btnPrimary = {
+  width: "100%",
+  padding: 16,
+  borderRadius: 16,
+  background: "black",
+  color: "white",
+  border: 0,
+  fontSize: 18,
+};
+
+const btnSecondary = {
+  width: "100%",
+  padding: 16,
+  borderRadius: 16,
+  background: "white",
+  border: "2px solid #ddd",
+  fontSize: 18,
+};
