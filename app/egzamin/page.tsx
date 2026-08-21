@@ -7,7 +7,7 @@ export default function Egzamin() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCzas((t) => (t > 0 ? t - 1 : 0));
+      setCzas((c) => (c > 0 ? c - 1 : 0));
     }, 1000);
 
     return () => clearInterval(timer);
@@ -17,13 +17,33 @@ export default function Egzamin() {
   const sek = czas % 60;
 
   return (
-    <main style={{ padding: 20, fontFamily: "Arial" }}>
+    <main
+      style={{
+        minHeight: "100vh",
+        background: "#111827",
+        color: "white",
+        padding: 30,
+        fontFamily: "Arial"
+      }}
+    >
       <h1>Egzamin próbny</h1>
-      <h2 style={{ color: czas < 600 ? "red" : "green" }}>
-        {min}:{sek.toString().padStart(2, "0")}
-      </h2>
 
-      <p>To jest wersja z odliczaniem 90 minut.</p>
+      <div
+        style={{
+          fontSize: 56,
+          fontWeight: "bold",
+          color: czas < 300 ? "#ef4444" : "white",
+          margin: "30px 0"
+        }}
+      >
+        {String(min).padStart(2, "0")}:{String(sek).padStart(2, "0")}
+      </div>
+
+      <p>Czas egzaminu: 90 minut.</p>
+
+      <a href="/" style={{ color: "#60a5fa" }}>
+        ← Powrót
+      </a>
     </main>
   );
 }
