@@ -48,15 +48,14 @@ export default function Nauka() {
                 background:
                   wybrana === null
                     ? "#334155"
-                    : i === pyt.correct
+                   : odp.key === pyt.answer
                     ? "#16a34a"
                     : i === wybrana
                     ? "#dc2626"
                     : "#334155",
                 color: "white"
               }}
-            >
-              {odp}
+            >{odp.key}. {odp.text}
             </button>
           ))}
         </div>
