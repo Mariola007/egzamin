@@ -97,23 +97,64 @@ if (!started) {
           50 pytań • 90 minut.
         </p>
 
-        <button
-          onClick={() => setStarted(true)}
-          style={{
-            width:"100%",
-            padding:22,
-            borderRadius:18,
-            border:"none",
-            background:"#d6dbc2",
-            color:"#111",
-            fontSize:24,
-            fontWeight:700,
-            cursor:"pointer",
-            marginTop:30
-          }}
-        >
-          Rozpocznij egzamin →
-        </button>
+<div
+  style={{
+    display: "grid",
+    gap: 16,
+    marginTop: 30,
+  }}
+>
+  <button
+    onClick={() => setStarted(true)}
+    style={{
+      width: "100%",
+      padding: 22,
+      borderRadius: 18,
+      border: "none",
+      background: "#d6dbc2",
+      color: "#111",
+      fontSize: 22,
+      fontWeight: 700,
+      cursor: "pointer",
+    }}
+  >
+    📝 Egzamin (50 pytań / 90 min)
+  </button>
+
+  <Link href="/nauka" style={{ textDecoration: "none" }}>
+    <div
+      style={{
+        padding: 22,
+        borderRadius: 18,
+        border: "1px solid #2a3324",
+        color: "white",
+        background: "#0d120c",
+        fontSize: 22,
+        fontWeight: 700,
+        textAlign: "center",
+      }}
+    >
+      📚 Tryb nauki
+    </div>
+  </Link>
+
+  <Link href="/nauka?mode=image" style={{ textDecoration: "none" }}>
+    <div
+      style={{
+        padding: 22,
+        borderRadius: 18,
+        border: "1px solid #2a3324",
+        color: "white",
+        background: "#0d120c",
+        fontSize: 22,
+        fontWeight: 700,
+        textAlign: "center",
+      }}
+    >
+      🖼️ Pytania obrazkowe
+    </div>
+  </Link>
+</div>
       </div>
     </main>
   );
