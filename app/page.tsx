@@ -1,123 +1,136 @@
 "use client";
 
-import Link from "next/link";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+import pytania from "../../data/questions.json";
 
-export default function EgzaminStart() {
+export default function NaukaPage() {
+  const search = useSearchParams();
+  const imageMode = search.get("mode") === "image";
+
+  const lista = useMemo(() => {
+    const all = [...(pytania as any[])];
+
+    if (imageMode) {
+      return all.filter((q) => q.image && q.image !== "");
+    }
+
+    return all;
+  }, [imageMode]);
+
+  const [nr, setNr] = useState(0);
+  const [wybrana, setWybrana] = useState<string | null>(null);
+
+  const q = lista[nr];
+
+  if (!q) {
+    return (
+      <main style={{padding:30,color:"white",background:"#050805",minHeight:"100vh"}}>
+        <h1>Brak pytań obrazkowych.</h1>
+      </main>
+    );
+  }
+
   return (
     <main
       style={{
-        minHeight: "100vh",
-        background: "#060906",
-        color: "#eef2e8",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 30,
-        fontFamily: "Arial",
+        background:"#050805",
+        color:"white",
+        minHeight:"100vh",
+        padding:20,
+        maxWidth:900,
+        margin:"0 auto"
       }}
     >
-      <div
-        style={{
-          width: "100%",
-          maxWidth: 900,
-          border: "1px solid #243224",
-          borderRadius: 24,
-          background: "rgba(10,14,10,.9)",
-          padding: 40,
-        }}
-      >
-        <div
-          style={{
-            display: "inline-block",
-            border: "1px solid #4d6a45",
-            borderRadius: 999,
-            padding: "8px 18px",
-            color: "#b6c7a8",
-            fontSize: 13,
-            marginBottom: 20,
-          }}
-        >
-          ● TRYB EGZAMINACYJNY
-        </div>
+      <div style={{display:"flex",justifyContent:"space-between",marginBottom:20}}>
+        <div>{imageMode ? "🖼️ Pytania obrazkowe" : "📚 Tryb nauki"}</div>
+        <div>{nr+1}/{lista.length}</div>
+      </div>
 
-        <h1 style={{ fontSize: 54, margin: "0 0 15px" }}>
-          Egzamin Oficerski
-        </h1>
+      <h2>{q.question}</h2>
 
-        <p style={{ color: "#9fa89a", lineHeight: 1.7 }}>
-          Oficjalna symulacja egzaminu.
-          <br />
-          Masz dokładnie 50 pytań oraz 90 minut.
-        </p>
-
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            gap: 16,
-            marginTop: 35,
-          }}
-        >
-          {[
-            ["50", "PYTAŃ"],
-            ["90", "MINUT"],
-            ["70%", "PRÓG"],
-          ].map(([v, l]) => (
-            <div
-              key={l}
-              style={{
-                border: "1px solid #223222",
-                borderRadius: 18,
-                padding: 24,
-                textAlign: "center",
-                background: "#0a100a",
-              }}
-            >
-              <div style={{ fontSize: 36, fontWeight: 700 }}>{v}</div>
-              <div style={{ color: "#7f8d7f", marginTop: 6 }}>{l}</div>
-            </div>
-          ))}
-        </div>
-
-        <div
-          style={{
-            marginTop: 35,
-            border: "1px solid #2b3b2b",
-            borderRadius: 18,
-            padding: 22,
-            background: "#081008",
-          }}
-        >
-          <div style={{ color: "#b8c7b1", marginBottom: 10 }}>
-            Zasady egzaminu
-          </div>
-
-          <ul style={{ lineHeight: 1.8, color: "#93a08f" }}>
-            <li>50 losowych pytań.</li>
-            <li>Jedna odpowiedź.</li>
-            <li>90 minut.</li>
-            <li>Po zakończeniu otrzymasz raport.</li>
-          </ul>
-        </div>
-
-        <Link href="/egzamin/sesja">
-          <button
+      {q.image && (
+        <div style={{margin:"20px 0"}}>
+          <Image
+            src={q.image}
+            alt="Pytanie"
+            width={700}
+            height={400}
             style={{
-              width: "100%",
-              marginTop: 35,
-              padding: 20,
-              borderRadius: 18,
-              border: "none",
-              background: "#d8e0c8",
-              color: "#111",
-              fontSize: 18,
-              fontWeight: 700,
-              cursor: "pointer",
+              width:"100%",
+              height:"auto",
+              borderRadius:14,
+              border:"1px solid #334155"
+            }}
+          />
+        </div>
+      )}
+
+      <div style={{display:"grid",gap:12}}>
+        {q.choices.map((c:any)=>(
+          <button
+            key={c.key}
+            onClick={()=>setWybrana(c.key)}
+            style={{
+              padding:16,
+              borderRadius:12,
+              border:"1px solid #2a3324",
+              background:
+                wybrana===null
+                  ? "#11150f"
+                  : c.key===q.correctKey
+                    ? "#163a34"
+                    : c.key===wybrana
+                      ? "#5b1f1f"
+                      : "#11150f",
+              color:"white",
+              textAlign:"left",
+              cursor:"pointer"
             }}
           >
-            Rozpocznij egzamin →
+            {c.key}. {c.text}
           </button>
-        </Link>
+        ))}
+      </div>
+
+      {wybrana && (
+        <div
+          style={{
+            marginTop:20,
+            border:"1px solid #2a3324",
+            borderRadius:14,
+            padding:18,
+            background:"#0b100a"
+          }}
+        >
+          <h3>Poprawna odpowiedź: {q.correctKey}</h3>
+
+          {q.why_correct_short && <p>{q.why_correct_short}</p>}
+          {q.why_correct_long && <p>{q.why_correct_long}</p>}
+        </div>
+      )}
+
+      <div style={{display:"flex",gap:10,marginTop:30}}>
+        <button
+          onClick={()=>{
+            setNr(Math.max(0,nr-1));
+            setWybrana(null);
+          }}
+          disabled={nr===0}
+        >
+          ← Poprzednie
+        </button>
+
+        <button
+          onClick={()=>{
+            setNr(Math.min(lista.length-1,nr+1));
+            setWybrana(null);
+          }}
+          disabled={nr===lista.length-1}
+        >
+          Następne →
+        </button>
       </div>
     </main>
   );
