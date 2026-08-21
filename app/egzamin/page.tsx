@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import pytania from "../../data/questions.json";
 
 const EXAM_TIME = 90 * 60;
